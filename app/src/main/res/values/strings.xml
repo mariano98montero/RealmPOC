@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">RealmPOC</string>
+    <string name="dog_name_card_string">Dog name: %1$s</string>
+    <string name="dog_age_card_string">Dog Age: %1$s</string>
+    <string name="name_already_added_error">There is a dog with that name already!</string>
+    <string name="no_dogs_added_yet_error">There is no dog added yet!</string>
+    <string name="title_main_activity">My Dogs</string>
+    <string name="main_activity_edit_text_name_hint">Name of the dog</string>
+    <string name="main_activity_edit_text_age_hint">Age of the dog</string>
+    <string name="main_activity_button_add_dog">Add Dog!</string>
+    <string name="main_activity_empty_field_warning">Please set name and age of the dog</string>
+</resources>

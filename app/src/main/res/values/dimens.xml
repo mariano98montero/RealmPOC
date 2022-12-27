@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_activity_title_text_size">20sp</dimen>
+    <dimen name="main_activity_title_margin_vertical">10dp</dimen>
+    <dimen name="main_activity_recycler_margin_vertical">10dp</dimen>
+    <dimen name="main_activity_name_field_margin_top">15dp</dimen>
+    <dimen name="main_activity_add_button_margin_vertical">15dp</dimen>
+    <dimen name="main_activity_empty_state_image_size">200dp</dimen>
+    <dimen name="main_activity_loader_size">160dp</dimen>
+</resources>
