@@ -10,8 +10,10 @@ import com.example.realmpoc.R
 import com.example.realmpoc.adapter.DogsAdapter
 import com.example.realmpoc.databinding.ActivityMainBinding
 import com.example.realmpoc.entity.Dog
+import com.example.realmpoc.entity.Owner
 import com.example.realmpoc.util.Utils.ALREADY_EXISTS
 import com.example.realmpoc.util.Utils.EMPTY_STRING
+import com.example.realmpoc.util.Utils.firstToUpperCase
 import com.example.realmpoc.viewmodel.MainViewModel
 
 interface DogListener {
@@ -38,15 +40,18 @@ class MainActivity : AppCompatActivity(), DogListener {
         when (data.status) {
             MainViewModel.MainStatus.DATA_SUCCESS -> initDogList(data.dogList)
             MainViewModel.MainStatus.DATA_FAILURE -> showToast(data.errorMessage)
-            MainViewModel.MainStatus.DELETE_OK -> dogAdapter.updateList(dogList)
+            MainViewModel.MainStatus.DELETE_OK -> {
+                dogAdapter.updateList(dogList)
+                binding.loader.visibility = View.GONE
+            }
             MainViewModel.MainStatus.SAVE_OK -> viewModel.getData()
             MainViewModel.MainStatus.SHOW_LOADER -> binding.loader.visibility = View.VISIBLE
-            MainViewModel.MainStatus.HIDE_LOADER -> binding.loader.visibility = View.GONE
         }
     }
 
     private fun showToast(errorMessage: String) {
-        if (errorMessage.equals(ALREADY_EXISTS)) {
+        binding.loader.visibility = View.GONE
+        if (errorMessage == ALREADY_EXISTS) {
             Toast.makeText(
                 this@MainActivity,
                 getString(R.string.name_already_added_error),
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity(), DogListener {
     }
 
     private fun initDogList(dogs: List<Dog>) {
+        binding.loader.visibility = View.GONE
         if (dogList.isEmpty()) {
             binding.emptyStateImage.visibility = View.GONE
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -70,6 +76,9 @@ class MainActivity : AppCompatActivity(), DogListener {
             binding.recyclerView.adapter = dogAdapter
         } else {
             dogAdapter.updateList(dogs as ArrayList<Dog>)
+        }
+        if (dogs.isEmpty()) {
+            binding.emptyStateImage.visibility = View.VISIBLE
         }
         dogList = dogs
     }
@@ -83,22 +92,38 @@ class MainActivity : AppCompatActivity(), DogListener {
         viewModel.getData()
         with(binding) {
             addDogButton.setOnClickListener {
-                if (binding.dogNameField.text.isNotBlank() && binding.dogAgeField.text.isNotBlank()) {
+                if (binding.dogNameField.text.isNotBlank() && binding.dogAgeField.text.isNotBlank() && binding
+                        .dogOwnerNameField.text.isNotBlank() && binding.dogAddressField.text.isNotBlank()
+                ) {
                     viewModel.addDog(
                         Dog(
-                            name = binding.dogNameField.text.toString(),
-                            age = Integer.parseInt(binding.dogAgeField.text.toString())
+                            name = binding.dogNameField.text.toString().firstToUpperCase(),
+                            age = Integer.parseInt(binding.dogAgeField.text.toString()),
+                            owner = Owner(
+                                name = binding.dogOwnerNameField.text.toString().firstToUpperCase(),
+                                address = binding.dogAddressField.text.toString().firstToUpperCase()
+                            )
                         )
                     )
                     binding.dogNameField.setText(EMPTY_STRING)
                     binding.recyclerView.requestFocus()
                     binding.dogAgeField.setText(EMPTY_STRING)
+                    binding.dogAddressField.setText(EMPTY_STRING)
+                    binding.dogOwnerNameField.setText(EMPTY_STRING)
                 } else {
                     Toast.makeText(
                         this@MainActivity,
                         getString(R.string.main_activity_empty_field_warning),
                         Toast.LENGTH_SHORT
                     ).show()
+                }
+            }
+
+            activityMainSearchButton.setOnClickListener {
+                if (binding.activityMainSearchEditText.text.isNotBlank()) {
+                    viewModel.searchByOwnerName(binding.activityMainSearchEditText.text.toString().firstToUpperCase())
+                } else {
+                    viewModel.getData()
                 }
             }
         }

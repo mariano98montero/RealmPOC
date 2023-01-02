@@ -9,8 +9,8 @@ import com.example.realmpoc.entity.Dog
 import com.example.realmpoc.util.Result
 import com.example.realmpoc.util.Utils.EMPTY_STRING
 import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.DATA_FAILURE
+import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.DATA_SUCCESS
 import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.DELETE_OK
-import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.HIDE_LOADER
 import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.SAVE_OK
 import com.example.realmpoc.viewmodel.MainViewModel.MainStatus.SHOW_LOADER
 import kotlinx.coroutines.Dispatchers
@@ -26,14 +26,15 @@ class MainViewModel : ViewModel() {
     fun getData() = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
         withContext(Dispatchers.IO) { Database.getDogs() }.let { result ->
-            liveData.postValue(MainData(status = HIDE_LOADER))
             when (result) {
                 is Result.Success -> liveData.postValue(
                     MainData(status = MainStatus.DATA_SUCCESS, dogList = result.data)
                 )
+
                 is Result.Failure -> liveData.postValue(
                     result.exception.message?.let { MainData(status = DATA_FAILURE, errorMessage = it) }
                 )
+
             }
         }
     }
@@ -41,7 +42,6 @@ class MainViewModel : ViewModel() {
     fun deleteDog(dogName: String) = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
         withContext(Dispatchers.IO) { Database.deleteDogByName(dogName) }.let {
-            liveData.postValue(MainData(status = HIDE_LOADER))
             liveData.postValue(MainData(status = DELETE_OK))
         }
     }
@@ -49,7 +49,6 @@ class MainViewModel : ViewModel() {
     fun addDog(dog: Dog) = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
         withContext(Dispatchers.IO) { Database.saveDog(dog) }.let { result ->
-            liveData.postValue(MainData(status = HIDE_LOADER))
             when (result) {
                 is Result.Success -> liveData.postValue(MainData(status = SAVE_OK))
                 is Result.Failure -> liveData.postValue(
@@ -57,6 +56,16 @@ class MainViewModel : ViewModel() {
                 )
             }
         }
+    }
+
+    fun searchByOwnerName(ownerName: String) = viewModelScope.launch {
+        liveData.postValue(MainData(status = SHOW_LOADER))
+        withContext(Dispatchers.IO) { Database.getDogsFiltered(ownerName) }.let { result ->
+            when (result) {
+                is Result.Success -> liveData.postValue(MainData(status = DATA_SUCCESS, dogList = result.data))
+            }
+        }
+
     }
 
     data class MainData(
@@ -70,7 +79,6 @@ class MainViewModel : ViewModel() {
         DATA_FAILURE,
         SAVE_OK,
         DELETE_OK,
-        SHOW_LOADER,
-        HIDE_LOADER
+        SHOW_LOADER
     }
 }

@@ -42,11 +42,15 @@ class DogsAdapter(
     inner class CardViewHolder(private val listener: DogListener, itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dogName: TextView = itemView.findViewById(R.id.dog_name_card)
         private val dogAge: TextView = itemView.findViewById(R.id.dog_age_card)
+        private val dogOwnerName: TextView = itemView.findViewById(R.id.dog_owner_card)
+        private val dogAddress: TextView = itemView.findViewById(R.id.dog_address_card)
         private val deleteButton: ImageView = itemView.findViewById(R.id.remove_dog)
 
         fun bind(dog: Dog) {
             dogName.text = itemView.context.getString(R.string.dog_name_card_string, dog.name)
             dogAge.text = itemView.context.getString(R.string.dog_age_card_string, dog.age.toString())
+            dogOwnerName.text = itemView.context.getString(R.string.dog_owner_card_string, dog.owner?.name)
+            dogAddress.text = itemView.context.getString(R.string.dog_address_card_string, dog.owner?.address)
             deleteButton.setOnClickListener {
                 listener.deleteDog(adapterPosition, dogList[adapterPosition].name)
             }

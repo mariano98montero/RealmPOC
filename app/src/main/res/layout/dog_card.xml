@@ -7,50 +7,77 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/teal_200"
-        app:cardCornerRadius="3dp"
+        android:layout_margin="@dimen/dog_card_margin"
+        app:cardElevation="@dimen/dog_card_elevation"
+        app:cardBackgroundColor="@color/blue_300"
+        app:cardCornerRadius="@dimen/dog_card_radius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="@dimen/dog_card_layout_padding">
 
             <TextView
                 android:id="@+id/dog_name_card"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/dog_card_margin_vertical"
+                android:layout_marginStart="@dimen/dog_card_margin_start"
                 android:text="@string/dog_name_card_string"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textSize="18sp" />
+                android:textSize="@dimen/dog_card_text_size" />
 
             <TextView
                 android:id="@+id/dog_age_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/black"
+                android:layout_marginVertical="@dimen/dog_card_margin_vertical"
+                android:layout_marginStart="@dimen/dog_card_margin_start"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dog_name_card"
                 android:text="@string/dog_age_card_string"
-                android:textSize="18sp" />
+                android:textSize="@dimen/dog_card_text_size" />
+
+            <TextView
+                android:id="@+id/dog_owner_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginVertical="@dimen/dog_card_margin_vertical"
+                android:layout_marginStart="@dimen/dog_card_margin_start"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dog_age_card"
+                android:text="@string/dog_owner_card_string"
+                android:textSize="@dimen/dog_card_text_size" />
+
+            <TextView
+                android:id="@+id/dog_address_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginVertical="@dimen/dog_card_margin_vertical"
+                android:layout_marginStart="@dimen/dog_card_margin_start"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dog_owner_card"
+                android:text="@string/dog_address_card_string"
+                android:textSize="@dimen/dog_card_text_size" />
 
             <ImageView
                 android:id="@+id/remove_dog"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/dog_card_remove_icon_size"
+                android:layout_height="@dimen/dog_card_remove_icon_size"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/dog_card_remove_icon_margin_end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/dog_name_card"
-                app:layout_constraintBottom_toBottomOf="@id/dog_age_card"
+                app:layout_constraintBottom_toBottomOf="@id/dog_name_card"
                 android:src="@drawable/ic_close" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

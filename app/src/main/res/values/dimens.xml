@@ -3,8 +3,20 @@
     <dimen name="main_activity_title_text_size">20sp</dimen>
     <dimen name="main_activity_title_margin_vertical">10dp</dimen>
     <dimen name="main_activity_recycler_margin_vertical">10dp</dimen>
-    <dimen name="main_activity_name_field_margin_top">15dp</dimen>
     <dimen name="main_activity_add_button_margin_vertical">15dp</dimen>
     <dimen name="main_activity_empty_state_image_size">200dp</dimen>
     <dimen name="main_activity_loader_size">160dp</dimen>
+    <dimen name="main_activity_search_field_margin_vertical">10dp</dimen>
+    <dimen name="main_activity_search_field_margin_start">10dp</dimen>
+    <dimen name="main_activity_search_button_margin_horizontal">10dp</dimen>
+    <dimen name="main_activity_search_button_width">45dp</dimen>
+    <dimen name="dog_card_margin">10dp</dimen>
+    <dimen name="dog_card_elevation">3dp</dimen>
+    <dimen name="dog_card_radius">5dp</dimen>
+    <dimen name="dog_card_layout_padding">10dp</dimen>
+    <dimen name="dog_card_text_size">18sp</dimen>
+    <dimen name="dog_card_margin_vertical">5dp</dimen>
+    <dimen name="dog_card_margin_start">10dp</dimen>
+    <dimen name="dog_card_remove_icon_size">20dp</dimen>
+    <dimen name="dog_card_remove_icon_margin_end">10dp</dimen>
 </resources>
