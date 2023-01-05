@@ -15,6 +15,7 @@ import com.example.realmpoc.util.Utils.ALREADY_EXISTS
 import com.example.realmpoc.util.Utils.EMPTY_STRING
 import com.example.realmpoc.util.Utils.firstToUpperCase
 import com.example.realmpoc.viewmodel.MainViewModel
+import org.koin.android.ext.android.inject
 
 interface DogListener {
     fun deleteDog(position: Int, dogName: String)
@@ -23,7 +24,7 @@ interface DogListener {
 class MainActivity : AppCompatActivity(), DogListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by inject()
     private var dogList: ArrayList<Dog> = ArrayList()
     private lateinit var dogAdapter: DogsAdapter
 

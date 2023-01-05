@@ -4,6 +4,7 @@ import com.example.realmpoc.entity.Dog
 import com.example.realmpoc.database.entity.DogEntity
 import com.example.realmpoc.database.entity.OwnerEntity
 import com.example.realmpoc.entity.Owner
+import java.util.Arrays
 
 class DogDatabaseMapper {
 

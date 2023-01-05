@@ -10,13 +10,15 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.query.RealmSingleQuery
+import java.util.Arrays
+import java.util.Arrays.asList
 
 object Database {
     // To set up Realm we need an schema, a class implementing RealmObject.
     private val configuration = RealmConfiguration.Builder(schema = setOf(DogEntity::class, OwnerEntity::class))
         // Here we set Realm so if you change the Realm Object schema, it will take the new one.
         // However be careful because this will delete all data saved.
-        .schemaVersion(2)
+        .schemaVersion(1)
         .deleteRealmIfMigrationNeeded()
         .build()
 

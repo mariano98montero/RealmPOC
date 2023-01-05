@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
+class MainViewModel(val database: Database) : ViewModel() {
 
     private var liveData = MutableLiveData<MainData>()
 
@@ -25,7 +25,7 @@ class MainViewModel : ViewModel() {
 
     fun getData() = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
-        withContext(Dispatchers.IO) { Database.getDogs() }.let { result ->
+        withContext(Dispatchers.IO) { database.getDogs() }.let { result ->
             when (result) {
                 is Result.Success -> liveData.postValue(
                     MainData(status = MainStatus.DATA_SUCCESS, dogList = result.data)
@@ -41,14 +41,14 @@ class MainViewModel : ViewModel() {
 
     fun deleteDog(dogName: String) = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
-        withContext(Dispatchers.IO) { Database.deleteDogByName(dogName) }.let {
+        withContext(Dispatchers.IO) { database.deleteDogByName(dogName) }.let {
             liveData.postValue(MainData(status = DELETE_OK))
         }
     }
 
     fun addDog(dog: Dog) = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
-        withContext(Dispatchers.IO) { Database.saveDog(dog) }.let { result ->
+        withContext(Dispatchers.IO) { database.saveDog(dog) }.let { result ->
             when (result) {
                 is Result.Success -> liveData.postValue(MainData(status = SAVE_OK))
                 is Result.Failure -> liveData.postValue(
@@ -60,7 +60,7 @@ class MainViewModel : ViewModel() {
 
     fun searchByOwnerName(ownerName: String) = viewModelScope.launch {
         liveData.postValue(MainData(status = SHOW_LOADER))
-        withContext(Dispatchers.IO) { Database.getDogsFiltered(ownerName) }.let { result ->
+        withContext(Dispatchers.IO) { database.getDogsFiltered(ownerName) }.let { result ->
             when (result) {
                 is Result.Success -> liveData.postValue(MainData(status = DATA_SUCCESS, dogList = result.data))
             }

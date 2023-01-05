@@ -44,6 +44,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'io.insert-koin:koin-core:3.3.2'
+    implementation 'io.insert-koin:koin-android:3.3.2'
 
     implementation 'io.realm.kotlin:library-base:1.4.0'
     implementation "com.airbnb.android:lottie:5.2.0"

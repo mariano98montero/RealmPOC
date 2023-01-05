@@ -33,6 +33,7 @@ class DogsAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newDogList: ArrayList<Dog>) {
+        newDogList.sortBy { it.name }
         dogList = newDogList
         notifyDataSetChanged()
     }
